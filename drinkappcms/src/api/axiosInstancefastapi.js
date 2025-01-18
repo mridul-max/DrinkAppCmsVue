@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: "https://fastapi-app-kilo-dev.apps.inholland.hcs-lab.nl/", // Use the proxy for all backend requests
+  baseURL: "https://my-azure-function-kilo-dev.apps.inholland.hcs-lab.nl/", // Use the proxy for all backend requests
 });
 
 // Add a request interceptor to include the JWT token
