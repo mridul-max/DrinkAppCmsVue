@@ -22,7 +22,8 @@
   </template>
   
   <script>
-import axiosInstance from "@/api/axiosInstancefastapi"; // Use the custom Axios instance
+import pythonApi from "@/api/axiosInstanceAzure";
+
 
 export default {
   data() {
@@ -39,7 +40,7 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        const response = await axiosInstance.post(
+        const response = await pythonApi.post(
           "/drinkrecord/newrecord", // Proxy handles base URL
           this.formData
         );
