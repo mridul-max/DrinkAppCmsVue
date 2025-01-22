@@ -2,12 +2,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 // Create an Axios instance
-const axiosInstance = axios.create({
-  baseURL: "https://my-azure-function-kilo-dev.apps.inholland.hcs-lab.nl/", // Use the proxy for all backend requests
+const pythonApi = axios.create({
+  baseURL: "https://fastapi-app-kilo-dev.apps.inholland.hcs-lab.nl/", // Use the proxy for all backend requests
 });
 
 // Add a request interceptor to include the JWT token
-axiosInstance.interceptors.request.use(
+pythonApi.interceptors.request.use(
   (config) => {
     const token = Cookies.get("jwtToken");
     if (token) {
@@ -20,4 +20,4 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-export default axiosInstance;
+export default pythonApi;

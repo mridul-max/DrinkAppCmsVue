@@ -2,12 +2,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 // Create an Axios instance for the Python microservice
-const pythonApi = axios.create({
-    baseURL: "https://fastapi-app-kilo-dev.apps.inholland.hcs-lab.nl/", // Use the proxy for all backend requests
+const azureApi = axios.create({
+    baseURL: "http://my-azure-function-kilo-dev.apps.inholland.hcs-lab.nl/", // Use the proxy for all backend requests
   });
 
 // Add a request interceptor to include the JWT token for Python
-pythonApi.interceptors.request.use(
+azureApi.interceptors.request.use(
   (config) => {
     const token = Cookies.get("jwtToken");
     if (token) {
@@ -20,4 +20,4 @@ pythonApi.interceptors.request.use(
   }
 );
 
-export default pythonApi;
+export default azureApi;

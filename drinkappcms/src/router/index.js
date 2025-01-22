@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'; // for Vue 3.x
 import Login from '@/components/LoginForm.vue'; // Import the Login component
 import NewRecord from '@/components/NewRecord.vue'; // Import other components
 import Cookies from 'js-cookie'; // Import Cookies for token handling
+import GetPatientRecords from '@/components/GetPatientRecords.vue'; 
+import DailyGoalCheck from '@/components/DailyGoalCheck.vue';
+import GetAllPatients from '@/components/GetAllPatients.vue';
 
 const routes = [
   {
@@ -13,6 +16,24 @@ const routes = [
     path: '/drinkrecord/newrecord',
     name: 'NewRecord',
     component: NewRecord,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/drinkrecord/patientrecord',
+    name: 'PatientRecord',
+    component: GetPatientRecords,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/patient/dailygoalcheck',
+    name: 'DailyGoalCheck',
+    component: DailyGoalCheck,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/patients',
+    name: 'GetAllPatients',
+    component: GetAllPatients,
     meta: { requiresAuth: true },
   },
 ];
