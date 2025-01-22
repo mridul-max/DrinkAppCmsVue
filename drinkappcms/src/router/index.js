@@ -6,7 +6,6 @@ import GetPatientRecords from '@/components/GetPatientRecords.vue';
 import DailyGoalCheck from '@/components/DailyGoalCheck.vue';
 import GetAllPatients from '@/components/GetAllPatients.vue';
 import Dashboard from '@/components/Dashboard.vue'; // Import the Dashboard component
-import GetPatientNumber from '@/components/GetPatientNumber.vue';
 import GetAllCaregivers from '@/components/GetAllCaregivers.vue';
 import RegisterCareGiver from '@/components/RegisterCareGiver.vue';
 
