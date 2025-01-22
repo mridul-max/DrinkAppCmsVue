@@ -39,11 +39,13 @@
     <!-- Error Message -->
     <div v-if="error" class="error">{{ error }}</div>
   </div>
+  <BacktoDashboardButton />
 </template>
 
 <script>
 // Importing the custom axios instance
 import pythonApi from '@/api/axiosInstancefastapi'; // Adjust path as necessary
+import BacktoDashboardButton from "@/components/BacktoDashboardButton.vue"; // Import the button
 
 export default {
   name: 'CreateDrinkRecordForm',
@@ -56,6 +58,9 @@ export default {
       error: null, // Error message
     };
   },
+  components: {
+      BacktoDashboardButton, // Register the button
+    },
   methods: {
     async submitDrinkRecord() {
       if (!this.phone_number || !this.amount_ml || this.amount_ml <= 0) {

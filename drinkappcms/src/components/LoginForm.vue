@@ -44,6 +44,8 @@ export default {
         Cookies.set("jwtToken", token, { expires: 1, secure: true });
         this.successMessage = "Login successful! Token stored in cookies.";
         this.errorMessage = "";
+        // Redirect to the dashboard after successful login
+        this.$router.push('/dashboard');
 
       } catch (error) {
         this.errorMessage =

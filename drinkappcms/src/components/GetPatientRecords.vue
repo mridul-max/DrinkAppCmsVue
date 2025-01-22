@@ -36,11 +36,13 @@
         </ul>
       </div>
     </div>
+    <BacktoDashboardButton />
   </div>
 </template>
 
 <script>
 import pythonApi from "@/api/axiosInstancefastapi"; // Adjust path if necessary
+import BacktoDashboardButton from "@/components/BacktoDashboardButton.vue"; // Import the button
 
 export default {
   name: "DrinkRecordsForm",
@@ -52,6 +54,9 @@ export default {
       error: null, // Error message
     };
   },
+  components: {
+      BacktoDashboardButton, // Register the button
+    },
   methods: {
     async fetchDrinkRecords() {
       if (!this.patientId) {
