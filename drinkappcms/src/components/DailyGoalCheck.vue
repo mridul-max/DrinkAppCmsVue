@@ -26,21 +26,15 @@
       </div>
   
       <!-- Error Messages -->
-      <div v-if="goError" class="error-message">
-        <p>Error fetching total daily goal: {{ goError }}</p>
-      </div>
-      <div v-if="pythonError" class="error-message">
-        <p>Error fetching remaining daily goal: {{ pythonError }}</p>
+      <div v-if="error" class="error-message">
+        <p>Error fetching daily goal: {{ error }}</p>
       </div>
   
       <!-- Display Daily Goals -->
-      <div v-if="(totalDailyGoal !== null || remainingDailyGoal !== null) && !loading">
+      <div v-if="dailyGoal !== null && !loading">
         <h3>Patient's Daily Goals:</h3>
-        <p v-if="totalDailyGoal !== null">
-          <strong>Total Daily Goal:</strong> {{ totalDailyGoal }} ml
-        </p>
-        <p v-if="remainingDailyGoal !== null">
-          <strong>Remaining Daily Goal:</strong> {{ remainingDailyGoal }} ml
+        <p>
+          <strong>Daily Goal:</strong> {{ dailyGoal }} ml
         </p>
       </div>
   
@@ -51,18 +45,15 @@
   
   <script>
   import pythonApi from "@/api/axiosInstancefastapi"; // Axios instance for Python backend
-  import goApi from "@/api/axiosInstanceGo"; // Axios instance for Go backend
   import BacktoDashboardButton from "@/components/BacktoDashboardButton.vue"; // Import the button
   
   export default {
     data() {
       return {
         patientId: "",
-        totalDailyGoal: null, // To store the total daily goal from Go backend
-        remainingDailyGoal: null, // To store the remaining daily goal from Python backend
+        dailyGoal: null, // To store the daily goal from Python backend
         loading: false,
-        goError: null, // Error for Go backend
-        pythonError: null, // Error for Python backend
+        error: null, // Error for Python backend
       };
     },
     components: {
@@ -71,41 +62,26 @@
     methods: {
       async getDailyGoals() {
         if (!this.patientId) {
-          this.goError = "Patient ID is required.";
-          this.pythonError = "Patient ID is required.";
+          this.error = "Patient ID is required.";
           return;
         }
   
         this.loading = true;
-        this.goError = null;
-        this.pythonError = null;
-        this.totalDailyGoal = null;
-        this.remainingDailyGoal = null;
+        this.error = null;
+        this.dailyGoal = null;
   
         try {
-          // Call the Go backend for total daily goal
-          try {
-            const goResponse = await goApi.get(`/patients/dailygoal?Id=${this.patientId}`);
-            this.totalDailyGoal = goResponse.data; // Store the total daily goal
-          } catch (goErr) {
-            this.goError = goErr.response
-              ? goErr.response.data.detail || "Failed to fetch total daily goal."
-              : "Failed to fetch total daily goal.";
-          }
-  
-          // Call the Python backend for remaining daily goal
-          try {
-            const pythonResponse = await pythonApi.get("/patients/dailygoalcheck", {
-              params: {
-                patient_id: this.patientId,
-              },
-            });
-            this.remainingDailyGoal = pythonResponse.data; // Store the remaining daily goal
-          } catch (pythonErr) {
-            this.pythonError = pythonErr.response
-              ? pythonErr.response.data.detail || "Failed to fetch remaining daily goal."
-              : "Failed to fetch remaining daily goal.";
-          }
+          // Call the Python backend for daily goal
+          const response = await pythonApi.get("/patients/dailygoalcheck", {
+            params: {
+              patient_id: this.patientId,
+            },
+          });
+          this.dailyGoal = response.data; // Store the daily goal
+        } catch (err) {
+          this.error = err.response
+            ? err.response.data.detail || "Failed to fetch daily goal."
+            : "Failed to fetch daily goal.";
         } finally {
           this.loading = false;
         }

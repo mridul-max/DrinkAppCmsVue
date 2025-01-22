@@ -14,9 +14,6 @@
         <router-link to="/patients" class="dashboard-link">
           View/Edit All Patients
         </router-link>
-        <router-link to="/patient/phoneNumber" class="dashboard-link">
-          View Patient Phone Number
-        </router-link>
         <router-link to="/caregiver" class="dashboard-link">
           View/Assign Caregiver
         </router-link>

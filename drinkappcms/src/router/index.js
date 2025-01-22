@@ -46,12 +46,12 @@ const routes = [
     component: GetAllPatients,
     meta: { requiresAuth: true },
   },
-  {
+/*   {
     path: '/patient/phoneNumber', // Add the new route
     name: 'GetPatientPhoneNumber',
     component: GetPatientNumber,
     meta: { requiresAuth: true },
-  },
+  }, */
   {
     path: '/caregiver', // Add the new route
     name: 'GetAllCaregivers',
